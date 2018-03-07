@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <h:outputStylesheet library="webjars" name="bootstrap/3.3.6/css/bootstrap.min-jsf.css"/>
+    <h:outputStylesheet library="css" name="login.css"/>
+    <title>Login page</title>
+</h:head>
+
+<h:body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <a href="#" class="active" id="login-form-link">Login</a>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="#" id="register-form-link">Register</a>
+                            </div>
+                        </div>
+                        <hr class="hr"/>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h:form id="login-form" styleClass="form" style="display: block;">
+                                    <div class="form-group">
+                                        <h:inputText styleClass="form-control" tabindex="1"
+                                                     a:placeholder="Email" value="#{userBean.email}"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:inputSecret styleClass="form-control" tabindex="2"
+                                                       a:placeholder="Password" value="#{userBean.password}"/>
+                                        <h:messages globalOnly="true" styleClass="error"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <h:commandButton id="submit" value="Sign in"
+                                                                 styleClass="form-control btn btn-login" tabindex="3"
+                                                                 action="#{userBean.login}"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h:form>
+                                <h:form id="register-form" style="display: none;">
+                                    <div class="form-group">
+                                        <h:inputText id="email" tabindex="1" type="email" required="true"
+                                                     requiredMessage="Value is required" styleClass="form-control"
+                                                     a:placeholder="Email" value="#{userBean.email}">
+                                            <f:ajax event="blur" execute="@this" render="emailError"/>
+                                            <f:validator validatorId="emailValidator"/>
+                                        </h:inputText>
+                                        <p><h:message id="emailError" for="email" styleClass="error"/></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <h:inputSecret id="password" tabindex="2" required="true"
+                                                       requiredMessage="Value is required" styleClass="form-control"
+                                                       a:placeholder="Password" value="#{userBean.password}">
+                                            <f:ajax event="blur" execute="@this" render="passwordError"/>
+                                            <f:validator validatorId="passwordValidator"/>
+                                        </h:inputSecret>
+                                        <p><h:message id="passwordError" for="password" styleClass="error"/></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <h:commandButton value="Register now"
+                                                                 styleClass="form-control btn btn-register" tabindex="4"
+                                                                 action="#{userBean.registration}">
+                                                    <f:ajax execute="@all"/>
+                                                </h:commandButton>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h:outputScript library="webjars" name="jquery/2.1.4/jquery.min.js"/>
+    <h:outputScript library="js" name="login.js"/>
+    <h:outputScript library="webjars" name="bootstrap/3.3.6/js/bootstrap.min.js"/>
+</h:body>
+
+</html>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>JSF-WEB-APP</title>
+    <h:outputStylesheet library="webjars" name="/bootstrap/3.3.6/css/bootstrap.min.css"/>
+
+</h:head>
+<h:body>
+
+    <div id="page">
+
+        <div id="header">
+            <ui:insert name="header">
+                <ui:include src="header.xhtml"/>
+            </ui:insert>
+        </div>
+
+        <div id="content" class="container">
+            <ui:insert name="content">
+                <ui:include src="content.xhtml"/>
+            </ui:insert>
+        </div>
+
+    </div>
+
+</h:body>
+
+</html>

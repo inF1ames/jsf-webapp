@@ -1,0 +1,16 @@
+<ui:composition
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html">
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <h:form>
+                    <span class="navbar-brand">Logged as #{userBean.email}<h:commandLink action="#{userBean.logout}">Logout</h:commandLink>
+                </span>
+                </h:form>
+            </div>
+        </div>
+    </nav>
+</ui:composition>
