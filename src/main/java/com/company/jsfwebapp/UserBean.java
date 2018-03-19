@@ -1,17 +1,20 @@
 package com.company.jsfwebapp;
 
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.ParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @ManagedBean
-@ApplicationScoped
+@SessionScoped
 public class UserBean implements Serializable {
 
     private String email;
@@ -20,16 +23,14 @@ public class UserBean implements Serializable {
     private List<Event> currentEvents;
     @ManagedProperty("#{dateRange}")
     private DateRange dateRange;
-
-    private Map<String, String> users = new HashMap<String, String>() {{
-        put("admin@gmail.com", "admin");
-    }};
+    @ManagedProperty("#{userService}")
+    private UserService userService;
 
     public void login() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
 
-        if (users.containsKey(this.email) &&
-                this.password.equals(users.get(this.email))) {
+        if (userService.getUsers().containsKey(this.email) &&
+                this.password.equals(userService.getUsers().get(this.email))) {
             context.getExternalContext().getSessionMap().put("user", email);
             try {
                 context.getExternalContext().redirect("main.xhtml");
@@ -52,7 +53,7 @@ public class UserBean implements Serializable {
     }
 
     public void registration() throws IOException {
-        users.put(this.email, this.password);
+        userService.getUsers().put(this.email, this.password);
         login();
     }
 
@@ -86,7 +87,6 @@ public class UserBean implements Serializable {
         this.password = password;
     }
 
-
     public List<Event> getEvents() {
         return events;
     }
@@ -103,14 +103,6 @@ public class UserBean implements Serializable {
         this.dateRange = dateRange;
     }
 
-    public Map<String, String> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Map<String, String> users) {
-        this.users = users;
-    }
-
     public List<Event> getCurrentEvents() {
         return currentEvents;
     }
@@ -119,14 +111,24 @@ public class UserBean implements Serializable {
         this.currentEvents = currentEvents;
     }
 
+    public UserService getUserService() {
+
+        return userService;
+    }
+
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
+
     @Override
     public String toString() {
         return "UserBean{" +
                 "email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", events=" + events +
+                ", currentEvents=" + currentEvents +
                 ", dateRange=" + dateRange +
-                ", users=" + users +
+                ", userService=" + userService +
                 '}';
     }
 }

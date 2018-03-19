@@ -1,6 +1,6 @@
 package com.company.jsfwebapp.validator;
 
-import com.company.jsfwebapp.UserBean;
+import com.company.jsfwebapp.UserService;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -28,8 +28,8 @@ public class EmailValidator implements Validator {
     @Override
     public void validate(FacesContext context, UIComponent component, Object value) throws ValidatorException {
         Matcher matcher = pattern.matcher(value.toString());
-        UserBean userBean = context.getApplication().evaluateExpressionGet(context, "#{userBean}", UserBean.class);
-        if (userBean.getUsers().containsKey(value.toString())) {
+        UserService userService = context.getApplication().evaluateExpressionGet(context, "#{userService}", UserService.class);
+        if (userService.getUsers().containsKey(value.toString())) {
             FacesMessage message = new FacesMessage(null,
                     "Такой email уже занят");
             message.setSeverity(FacesMessage.SEVERITY_ERROR);
